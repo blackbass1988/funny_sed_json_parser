@@ -1,6 +1,8 @@
 #!/bin/sh
 root="doxy"
-json=`curl -s http://localhost:9011/status/ | tail -n 1`;
+#json=`curl -s http://localhost:9011/status/ | tail -n 1`;
+json=`curl -s http://localhost:9002 | tr "\n" " " | sed 's/ //g' | tail -n 1`;
+
 json=$(echo "\"ROOT\":"$json)
 json=$(echo $json  |  sed -r 's/([a-z]+)([A-Z][a-z]+)/\1_\l\2/g' | sed -r 's/(\"\w+\"\:\{)/\n\1/g' | sed 's/"//g' | tr '[:upper:]' '[:lower:]' | tail -n +2)
 
